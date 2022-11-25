@@ -1,1 +1,2 @@
 charms.templating.jinja2>=1.0.0,<2.0.0
++Jinja2<3.0;python_version == '3.8'

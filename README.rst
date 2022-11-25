@@ -10,7 +10,7 @@ How to use this Charm:
 
 .. code::
 
-   juju deploy cs:~bertjwregeer/snmpd
+   juju deploy jblesener/snmpd
    juju add-relation othercharm snmpd
 
 This will deploy the Charm and make it a sub-ordinate to any other charm. This
@@ -40,8 +40,8 @@ None at this moment.
 Contact Information
 ~~~~~~~~~~~~~~~~~~~
 
-This charm was created by Bert JW Regeer <bertjw@regeer.org>
+This charm was created by Bert JW Regeer <bertjw@regeer.org> and updated by John Blesener <jblesener@reactivelabs.com>
 
- - Project: https://gitlab.com/bertjwregeer/juju_snmpd/
- - Issues: https://gitlab.com/bertjwregeer/juju_snmpd/issues
+ - Project: https://github.com/jblesener/juju_snmpd/
+ - Issues: https://github.com/jblesener/juju_snmpd/issues
 

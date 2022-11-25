@@ -1,6 +1,6 @@
 name: snmpd
 summary: SNMP (Simple Network Management Protocol) agents
-maintainer: Bert JW Regeer <Bert.JW.Regeer@playground>
+maintainer: John Blesener <jblesener@reactivelabs.com>
 description: |
   The Simple Network Management Protocol (SNMP) provides a framework for
   the exchange of management information between agents (servers) and
@@ -13,8 +13,8 @@ tags:
   - network
 subordinate: true
 series:
-  - xenial
   - bionic
+  - focal
 requires:
   host-system:
     interface: juju-info
