@@ -1,9 +1,17 @@
-name: Test Suite
-on: [push]
+name: Charm Build
+on:
+  push:
+  workflow_dispatch:
+      inputs:
+        debug_enabled:
+          type: boolean
+          description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
+          required: false
+          default: false
 
 jobs:
-  lint:
-    name: Lint
+  build:
+    name: build
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -12,5 +20,25 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
+      - name: Install Charm snap
+        run: sudo snap install charm --classic
+        shell: bash
+      - name: Install Charmcraft snap
+        run: sudo snap install charmcraft --classic
+        shell: bash
+      - name: Setup LXD
+        run: sudo lxd init --auto
+        shell: bash
+      - name: Build charm
+        run: sudo charmcraft pack
+        shell: bash
+      # Enable tmate debugging of manually-triggered workflows if the input option was provided
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
+      - uses: actions/upload-artifact@v3
+        with:
+          name: juju_snmpd.charm
+          path: *.charm
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
