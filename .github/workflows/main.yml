@@ -2,12 +2,12 @@ name: Charm Build
 on:
   push:
   workflow_dispatch:
-      inputs:
-        debug_enabled:
-          type: boolean
-          description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
-          required: false
-          default: false
+    inputs:
+      debug_enabled:
+        type: boolean
+        description: "Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)"
+        required: false
+        default: false
 
 jobs:
   build:
@@ -39,5 +39,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: juju_snmpd.charm
-          path: *.charm
-
+          path: "*.charm"
