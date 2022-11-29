@@ -2,10 +2,14 @@ type: "charm"
 bases:
   - build-on:
       - name: "ubuntu"
-        channel: "20.04"
+        channel: "18.04"
     run-on:
       - name: "ubuntu"
         channel: "18.04"
+  - build-on:
+      - name: "ubuntu"
+        channel: "20.04"
+    run-on:
       - name: "ubuntu"
         channel: "20.04"
 parts:
