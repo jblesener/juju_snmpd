@@ -36,35 +36,35 @@ jobs:
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
-      - name: Create release
-        uses: actions/create-release@v1
-        id: create_release
-        with:
-          draft: false
-          prerelease: false
-          release_name: ${{ github.sha }}
-          tag_name: "release"
-          body_path: CHANGELOG.md
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-      - name: Upload 18.04 charm as release artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./snmpd_ubuntu-18.04-amd64.charm
-          asset_name: snmpd_ubuntu-18.04-amd64.charm
-          asset_content_type: application/zip
-      - name: Upload 20.04 charm as release artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./snmpd_ubuntu-20.04-amd64.charm
-          asset_name: snmpd_ubuntu-20.04-amd64.charm
-          asset_content_type: application/zip
+      # - name: Create release
+      #   uses: actions/create-release@v1
+      #   id: create_release
+      #   with:
+      #     draft: false
+      #     prerelease: false
+      #     release_name: ${{ github.sha }}
+      #     tag_name: "release"
+      #     body_path: CHANGELOG.md
+      #   env:
+      #     GITHUB_TOKEN: ${{ github.token }}
+      # - name: Upload 18.04 charm as release artifact
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ github.token }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: ./snmpd_ubuntu-18.04-amd64.charm
+      #     asset_name: snmpd_ubuntu-18.04-amd64.charm
+      #     asset_content_type: application/zip
+      # - name: Upload 20.04 charm as release artifact
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ github.token }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: ./snmpd_ubuntu-20.04-amd64.charm
+      #     asset_name: snmpd_ubuntu-20.04-amd64.charm
+      #     asset_content_type: application/zip
 
       - name: Upload Charm
         run: sudo charmcraft upload snmpd_ubuntu-20.04-amd64.charm
