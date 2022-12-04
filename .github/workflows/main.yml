@@ -65,3 +65,13 @@ jobs:
           asset_path: ./snmpd_ubuntu-20.04-amd64.charm
           asset_name: snmpd_ubuntu-20.04-amd64.charm
           asset_content_type: application/zip
+
+      - name: Upload Charm
+        run: sudo charmcraft upload snmpd_ubuntu-20.04-amd64.charm
+        shell: bash
+      - name: Get Charm revisions
+        run: sudo charmcraft revisions snmp-daemon
+        shell: bash
+      - name: Release Charm snap
+        run: sudo charmcraft release snmp-daemon --revision=1 --channel=edge
+        shell: bash
