@@ -10,8 +10,8 @@ How to use this Charm:
 
 .. code::
 
-   juju deploy jblesener/snmpd
-   juju add-relation othercharm snmpd
+   juju deploy jblesener/snmp-daemon
+   juju add-relation othercharm snmp-daemon
 
 This will deploy the Charm and make it a sub-ordinate to any other charm. This
 will make sure that it is deployed alongside the parent charm at all times.
