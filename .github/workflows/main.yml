@@ -1,6 +1,8 @@
-name: Charm Build
+name: Charm Build/Release
 on:
   push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       debug_enabled:
@@ -11,67 +13,29 @@ on:
 
 jobs:
   build:
-    name: build
+    name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
+      - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup Python
-        uses: actions/setup-python@v2
         with:
-          python-version: 3.8
-      - name: Install Charm snap
-        run: sudo snap install charm --classic
-        shell: bash
-      - name: Install Charmcraft snap
-        run: sudo snap install charmcraft --classic
-        shell: bash
-      - name: Setup LXD
-        run: sudo lxd init --auto
-        shell: bash
-      - name: Build charm
-        run: sudo charmcraft pack
-        shell: bash
+          fetch-depth: 0
+      - name: Release any bumped charm libs
+        uses: canonical/charming-actions/release-libraries@2.2.0
+        with:
+          credentials: "${{ secrets.CHARMHUB_TOKEN }}"
+          github-token: "${{ secrets.CHARMCRAFT_AUTH }}"
+      - name: Select charmhub channel
+        uses: canonical/charming-actions/channel@2.2.0
+        id: channel
+      - name: Upload charm to charmhub
+        uses: canonical/charming-actions/upload-charm@2.2.0
+        with:
+          credentials: "${{ secrets.CHARMCRAFT_AUTH }}"
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          upload-image: "true"
+          channel: "${{ steps.channel.outputs.name }}"
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
-      # - name: Create release
-      #   uses: actions/create-release@v1
-      #   id: create_release
-      #   with:
-      #     draft: false
-      #     prerelease: false
-      #     release_name: ${{ github.sha }}
-      #     tag_name: "release"
-      #     body_path: CHANGELOG.md
-      #   env:
-      #     GITHUB_TOKEN: ${{ github.token }}
-      # - name: Upload 18.04 charm as release artifact
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ github.token }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-      #     asset_path: ./snmpd_ubuntu-18.04-amd64.charm
-      #     asset_name: snmpd_ubuntu-18.04-amd64.charm
-      #     asset_content_type: application/zip
-      # - name: Upload 20.04 charm as release artifact
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ github.token }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-      #     asset_path: ./snmpd_ubuntu-20.04-amd64.charm
-      #     asset_name: snmpd_ubuntu-20.04-amd64.charm
-      #     asset_content_type: application/zip
-
-      - name: Upload Charm
-        run: sudo charmcraft upload snmp-daemon_ubuntu-18.04-amd64_ubuntu-20.04-amd64_ubuntu-22.04-amd64.charm
-        shell: bash
-      - name: Get Charm revisions
-        run: sudo charmcraft revisions snmp-daemon
-        shell: bash
-      # - name: Release Charm snap
-      #   run: sudo charmcraft release snmp-daemon --revision=1 --channel=edge
-      #   shell: bash
