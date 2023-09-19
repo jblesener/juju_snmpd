@@ -7,7 +7,7 @@ from charms.reactive import (
 
 import charms.apt
 
-from charms.templating.jinja2 import render
+from charmhelpers.core.templating import render
 
 from charmhelpers.core import hookenv
 from charmhelpers.core.hookenv import status_set
