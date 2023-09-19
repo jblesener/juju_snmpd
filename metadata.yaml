@@ -16,6 +16,7 @@ subordinate: true
 series:
   - bionic
   - focal
+  - jammy
 requires:
   host-system:
     interface: juju-info

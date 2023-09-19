@@ -2,18 +2,22 @@ type: "charm"
 bases:
   - build-on:
       - name: "ubuntu"
-        channel: "18.04"
+        channel: "20.04"
+        architectures: [amd64]
     run-on:
       - name: "ubuntu"
         channel: "18.04"
-  - build-on:
+        architectures: [amd64]
       - name: "ubuntu"
         channel: "20.04"
-    run-on:
+        architectures: [amd64]
       - name: "ubuntu"
-        channel: "20.04"
+        channel: "22.04"
+        architectures: [amd64]
 parts:
   charm:
     source: .
     plugin: reactive
     build-snaps: [charm]
+    reactive-charm-build-arguments:
+      - -v
