@@ -13,9 +13,6 @@ on:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        version: [focal-amd64, jammy-amd64, noble-amd64]
     name: Release
     runs-on: ubuntu-latest
     steps:
