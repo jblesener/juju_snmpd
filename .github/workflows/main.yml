@@ -13,13 +13,17 @@ on:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        version: [focal-amd64, jammy-amd64, noble-amd64]
     name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - uses: canonical/craft-actions/charmcraft/pack@main
       - name: Release any bumped charm libs
         uses: canonical/charming-actions/release-libraries@2.2.0
         with:
@@ -35,6 +39,13 @@ jobs:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
           upload-image: "true"
           channel: "${{ steps.channel.outputs.name }}"
+          destructive-mode: "false"
+      - name: Archive Charm Under Test
+        uses: actions/upload-artifact@v4
+        with:
+          name: "snmp-daemon"
+          path: "*.charm"
+          retention-days: 5
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
