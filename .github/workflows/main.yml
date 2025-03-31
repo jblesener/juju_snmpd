@@ -24,7 +24,7 @@ jobs:
         id: pack
         uses: canonical/craft-actions/charmcraft/pack@main
       - name: Upload charm to charmhub
-        uses: canonical/charming-actions/upload-charm@2.2.0
+        uses: canonical/charming-actions/upload-charm@2.7.0
         with:
           credentials: "${{ secrets.CHARMCRAFT_AUTH }}"
           github-token: "${{ secrets.GITHUB_TOKEN }}"
