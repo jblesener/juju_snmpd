@@ -14,9 +14,9 @@ tags:
   - network
 subordinate: true
 series:
-  - bionic
   - focal
   - jammy
+  - noble
 requires:
   host-system:
     interface: juju-info

@@ -1,33 +1,23 @@
 type: "charm"
-bases:
-  - build-on:
-      - name: "ubuntu"
-        channel: "22.04"
-        architectures: [arm64]
-    run-on:
-      - name: "ubuntu"
-        channel: "18.04"
-        architectures: [arm64]
-      - name: "ubuntu"
-        channel: "20.04"
-        architectures: [arm64]
-      - name: "ubuntu"
-        channel: "22.04"
-        architectures: [arm64]
-  - build-on:
-      - name: "ubuntu"
-        channel: "22.04"
-        architectures: [amd64]
-    run-on:
-      - name: "ubuntu"
-        channel: "18.04"
-        architectures: [amd64]
-      - name: "ubuntu"
-        channel: "20.04"
-        architectures: [amd64]
-      - name: "ubuntu"
-        channel: "22.04"
-        architectures: [amd64]
+platforms:
+  focal-arm64:
+    build-on: [ubuntu@20.04:arm64]
+    build-for: [ubuntu@20.04:arm64]
+  focal-amd64:
+    build-on: [ubuntu@20.04:amd64]
+    build-for: [ubuntu@20.04:amd64]
+  jammy-arm64:
+    build-on: [ubuntu@22.04:arm64]
+    build-for: [ubuntu@22.04:arm64]
+  jammy-amd64:
+    build-on: [ubuntu@22.04:amd64]
+    build-for: [ubuntu@22.04:amd64]
+  noble-arm64:
+    build-on: [ubuntu@24.04:arm64]
+    build-for: [ubuntu@24.04:arm64]
+  noble-amd64:
+    build-on: [ubuntu@24.04:amd64]
+    build-for: [ubuntu@24.04:amd64]
 parts:
   charm:
     charm-python-packages: [setuptools]
