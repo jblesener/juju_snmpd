@@ -45,3 +45,24 @@ This charm was created by Bert JW Regeer <bertjw@regeer.org> and updated by John
  - Project: https://github.com/jblesener/juju_snmpd/
  - Issues: https://github.com/jblesener/juju_snmpd/issues
 
+Maintenance information
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Authenticate Github Actions to Charmhub
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Generate a charmcraft token:
+
+.. code::
+
+   charmcraft login --export=secret.txt --channel=latest/edge --permission=package-manage --permission=package-view --charm=snmp-daemon --ttl 31536000
+
+Put the contents of secret.txt in the CHARMHUB_AUTH Github Actions secret.
+
+Release a new version of the charm
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code::
+
+   charmcraft release snmp-daemon --revision=9 --channel=latest/beta
+   charmcraft release snmp-daemon --revision=9 --channel=latest/stable
