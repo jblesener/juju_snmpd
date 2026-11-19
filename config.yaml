@@ -11,6 +11,14 @@ options:
         type: string
         default: "rocommunity public localhost"
         description: "Multi-line string that contains ACL's, will be copied directly into the snmpd configuration file."
+    monitor-disks:
+        type: boolean
+        default: true
+        description: "Monitor all disks and report an error when free space falls below the configured threshold."
+    disk-threshold:
+        type: int
+        default: 10
+        description: "Minimum percentage of free disk space required when disk monitoring is enabled."
     other:
         type: string
         default: ""

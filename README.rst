@@ -28,6 +28,10 @@ There are a couple of configuration knobs:
   - sysContact: Updates the sysContact configuration variable
   - acls: Multi-line string that contains ACL information such as community
     strings
+  - monitor-disks: Enables monitoring of all disks. Defaults to true.
+  - disk-threshold: Minimum percentage of free disk space. Defaults to 10, and
+    is rendered as ``includeAllDisks 10%`` when disk monitoring is enabled.
+    Disabling monitor-disks omits the directive.
   - other: Multi-line string that contains other valid snmpd.conf
     configuration. Allows for great flexibility in building the snmpd.conf as
     required.

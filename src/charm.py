@@ -93,6 +93,8 @@ class snmpdCharm(CharmBase):
             'sysLocation': self.sys_location,
             'sysContact': self.sys_contact,
             'acls': [l.strip() for l in self.acls.splitlines()],
+            'monitorDisks': self.monitor_disks,
+            'diskThreshold': self.disk_threshold,
             'other': [l.strip() for l in self.other.splitlines()],
         }
 
@@ -119,6 +121,18 @@ class snmpdCharm(CharmBase):
         """SNMP ACLs.
         """
         return self.config['acls']
+
+    @property
+    def monitor_disks(self) -> bool:
+        """Whether all disks should be monitored.
+        """
+        return self.config['monitor-disks']
+
+    @property
+    def disk_threshold(self) -> int:
+        """Minimum percentage of free disk space.
+        """
+        return self.config['disk-threshold']
 
     @property
     def other(self) -> str:
